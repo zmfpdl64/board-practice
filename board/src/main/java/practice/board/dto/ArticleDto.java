@@ -3,7 +3,9 @@ package practice.board.dto;
 import practice.board.domain.Article;
 
 import java.time.LocalDateTime;
+import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public record ArticleDto(
         String title,
@@ -13,7 +15,7 @@ public record ArticleDto(
         String createdBy,
         LocalDateTime modifiedAt,
         String modifiedBy,
-        Set<String> comments
+        Set<CommentDto> comments
 ) {
 
     public static ArticleDto from(Article entity) {
@@ -25,7 +27,9 @@ public record ArticleDto(
                 entity.getCreatedBy(),
                 entity.getModifiedAt(),
                 entity.getModifiedBy(),
-                Set.of()    //TODO: Set<Comment>로 변경
+                entity.getComments().stream()
+                        .map(CommentDto::from)
+                        .collect(Collectors.toCollection(LinkedHashSet::new))//TODO: Set<Comment>로 변경
         );
     }
 
