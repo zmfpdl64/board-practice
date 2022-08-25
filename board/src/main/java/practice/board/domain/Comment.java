@@ -21,13 +21,18 @@ public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "COMMENT_ID")
     private Long commentId;
 
     //TODO: 게시글 엔티티로 변경해주기
-    private Long articleId;
+    @ManyToOne
+    @JoinColumn(name = "ARTICLE_ID")
+    private Article articleId;
 
     //TODO: 유저 엔티티로 작성시 유저 계정으로 변경
-    private String userId;
+    @ManyToOne
+    @JoinColumn(name = "USERACCOUNT_ID")
+    private UserAccount userId;
 
     private String content;
 
@@ -47,13 +52,13 @@ public class Comment {
 
     }
 
-    private Comment( Long articleId, String userId, String content) {
+    private Comment( Article articleId, UserAccount userId, String content) {
         this.articleId = articleId;
         this.userId = userId;
         this.content = content;
     }
 
-    public static Comment of( Long articleId, String userId, String content) {
+    public static Comment of( Article articleId, UserAccount userId, String content) {
         return new Comment(articleId, userId, content);
     }
 
