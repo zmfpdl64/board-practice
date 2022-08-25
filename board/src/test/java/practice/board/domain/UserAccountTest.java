@@ -16,17 +16,10 @@ class UserAccountTest {
     void givenNothing_whenChangeUserAccountDtoFromDto_thenReturnDto() {
 
         //Given
-        String userId = "woojin";
-        String password= "1234";
-        String email = "test@email.com";
-        String nickname = "woojin";
-        String phone = "01012345678";
-        String address = "seoul";
-        Set<String> articles = Set.of();
-        Set<String> comments = Set.of();
+
 
         //When
-        UserAccount userAccount = UserAccount.of(userId, password, email, nickname, phone, address);
+        UserAccount userAccount = createUser();
         UserAccountDto Dto = UserAccountDto.from(userAccount);
 
         //Then
@@ -36,6 +29,26 @@ class UserAccountTest {
         assertThat(userAccount.getNickname()).isEqualTo(Dto.nickname());
         assertThat(userAccount.getPhone()).isEqualTo(Dto.phone());
         assertThat(userAccount.getAddress()).isEqualTo(Dto.address());
+    }
+
+    protected Article createArticle() {
+        return Article.of(
+                createUser(),
+                "title",
+                "content",
+                "hashtag"
+        );
+    }
+
+    protected UserAccount createUser() {
+        return UserAccount.of(
+                "woojin",
+                "1234",
+                "test@email.com",
+                "woojin",
+                "01012345678",
+                "home"
+        );
     }
 
 }
