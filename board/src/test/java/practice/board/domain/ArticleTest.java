@@ -10,10 +10,10 @@ import java.util.Set;
 import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@DisplayName("Article Entity 테스트")
+@DisplayName("Article Entity TEST")
 class ArticleTest {
 
-    @DisplayName("Article entity, dto 비교")
+    @DisplayName("Article entity, dto Conversion")
     @Test
     void givenNothing_whenCreateArticleEntity_returnArticleEntity() {
 

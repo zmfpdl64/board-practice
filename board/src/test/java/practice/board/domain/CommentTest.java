@@ -7,11 +7,11 @@ import practice.board.dto.CommentDto;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-@DisplayName("Comment 엔티티, Dto 테스트")
+@DisplayName("Comment Entity, Dto TEST")
 class CommentTest {
 
     @Test
-    @DisplayName("Comment Entity <-> Dto 변환")
+    @DisplayName("Comment Entity <-> Dto Conversion")
     void givenNothing_whenChangeDtoFromEntity_thenReturnDto() {
 
         //Given
