@@ -28,13 +28,18 @@ import java.util.*;
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "ARTICLE_ID")
     private Long id;
 
     //TODO: 유저 엔티티 작성시 변경
-    private String userAccount;
+    @ManyToOne
+    @JoinColumn(name = "USERACCOUNT_ID")
+    private UserAccount userAccount;
 
     //TODO: 댓글 엔티티 작성시 변경
-    private static Set<String> comments = new LinkedHashSet<>();
+    @OneToMany
+    @JoinColumn(name = "COMMENT_ID")
+    private final Set<Comment> comments = new LinkedHashSet<>();
 
      private String title;
 
@@ -52,9 +57,8 @@ public class Article {
 
 
 
-    private Article(String userAccount, Set<String> comments, String title, String content, String hashtag) {
+    private Article(UserAccount userAccount, String title, String content, String hashtag) {
             this.userAccount = userAccount;
-            Article.comments = comments;
             this.title = title;
             this.content = content;
             this.hashtag = hashtag;
@@ -64,8 +68,8 @@ public class Article {
 
     }
 
-    public static Article of(String userAccount, Set<String> comments, String title, String content, String hashtag) {
-        return new Article(userAccount, comments, title, content, hashtag );
+    public static Article of(UserAccount userAccount, String title, String content, String hashtag) {
+        return new Article(userAccount, title, content, hashtag );
     }
 
 

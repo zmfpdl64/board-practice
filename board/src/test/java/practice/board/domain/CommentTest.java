@@ -15,10 +15,7 @@ class CommentTest {
     void givenNothing_whenChangeDtoFromEntity_thenReturnDto() {
 
         //Given
-        Long articleId = 1L;
-        String userId = "woojin";
-        String content = "content";
-        Comment comment = Comment.of(articleId, userId, content);
+        Comment comment = createCommet();
 
         //When
         CommentDto commentDto = CommentDto.from(comment);
@@ -29,5 +26,34 @@ class CommentTest {
 
 
 
+    }
+
+
+    protected Article createArticle() {
+        return Article.of(
+                createUser(),
+                "title",
+                "content",
+                "hashtag"
+        );
+    }
+
+    protected Comment createCommet() {
+        return Comment.of(
+                createArticle(),
+                createArticle().getUserAccount(),
+                "content"
+        );
+    }
+
+    protected UserAccount createUser() {
+        return UserAccount.of(
+                "woojin",
+                "1234",
+                "test@email.com",
+                "woojin",
+                "01012345678",
+                "home"
+        );
     }
 }

@@ -1,9 +1,12 @@
 package practice.board.dto;
 
+import practice.board.domain.Comment;
 import practice.board.domain.UserAccount;
 
 import java.time.LocalDateTime;
+import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public record UserAccountDto(
         String userId,
@@ -13,8 +16,8 @@ public record UserAccountDto(
         String phone,
         String address,
         //TODO: 게시글 엔티티, 댓글 엔티티 작성시 변경해야함
-        Set<String> articles,
-        Set<String> comments,
+        Set<ArticleDto> articles,
+        Set<CommentDto> comments,
         LocalDateTime createdAt,
         LocalDateTime modifiedAt
 
@@ -28,8 +31,12 @@ public record UserAccountDto(
                 entity.getNickname(),
                 entity.getPhone(),
                 entity.getAddress(),
-                Set.of(),
-                Set.of(),
+                entity.getArticles().stream()
+                        .map(ArticleDto::from)
+                        .collect(Collectors.toCollection(LinkedHashSet::new)),
+                entity.getComments().stream()
+                        .map(CommentDto::from)
+                        .collect(Collectors.toCollection(LinkedHashSet::new)),
                 entity.getCreatedAt(),
                 entity.getModifiedBy()
         );
