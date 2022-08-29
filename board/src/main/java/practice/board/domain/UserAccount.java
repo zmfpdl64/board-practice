@@ -19,10 +19,9 @@ import java.util.Set;
 public class UserAccount {
 
     @Id
-    @Column(name = "USERACCOUNT_ID")
     private String userId;
 
-    private String password;
+    private String userPassword;
 
     private String email;
 
@@ -33,23 +32,22 @@ public class UserAccount {
     private String address;
 
     //TODO: 게시글 엔티티, 댓글 엔티티 작성 시 변경
-    @OneToMany
-    @JoinColumn(name = "ARTICLE_ID")
-
+    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    @ToString.Exclude
     private final Set<Article> articles = new LinkedHashSet<>();
-    @OneToMany
-    @JoinColumn(name = "COMMENT_ID")
 
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
+    @ToString.Exclude
     private final Set<Comment> comments = new LinkedHashSet<>();
 
     @CreatedDate private LocalDateTime createdAt;
 
-    @LastModifiedDate private LocalDateTime modifiedBy;
+    @LastModifiedDate private LocalDateTime modifiedAt;
 
-    private UserAccount(String userId, String password, String email, String nickname,
+    private UserAccount(String userId, String userPassword, String email, String nickname,
                         String phone, String address) {
         this.userId = userId;
-        this.password = password;
+        this.userPassword = userPassword;
         this.email = email;
         this.nickname = nickname;
         this.phone = phone;

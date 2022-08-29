@@ -21,7 +21,6 @@ public class Comment {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "COMMENT_ID")
     private Long commentId;
 
     //TODO: 게시글 엔티티로 변경해주기
@@ -31,9 +30,10 @@ public class Comment {
 
     //TODO: 유저 엔티티로 작성시 유저 계정으로 변경
     @ManyToOne
-    @JoinColumn(name = "USERACCOUNT_ID")
+    @JoinColumn(name = "USERACCOUNT_USERID")
     private UserAccount userId;
 
+    @Column(length=1000)
     private String content;
 
     @CreatedDate

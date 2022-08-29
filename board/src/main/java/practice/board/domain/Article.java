@@ -2,13 +2,13 @@ package practice.board.domain;
 
 
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+import practice.board.dto.ArticleDto;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -28,21 +28,21 @@ import java.util.*;
 public class Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ARTICLE_ID")
     private Long id;
 
     //TODO: 유저 엔티티 작성시 변경
     @ManyToOne
-    @JoinColumn(name = "USERACCOUNT_ID")
+    @JoinColumn(name = "USERACCOUNT_USERID")
     private UserAccount userAccount;
 
     //TODO: 댓글 엔티티 작성시 변경
-    @OneToMany
-    @JoinColumn(name = "COMMENT_ID")
+    //여기서 연관 맵핑할 때 commentId로 해서 제대로 맵핑이 안돼 계속 오류가 발생했다..
+    @OneToMany(mappedBy = "articleId", cascade = CascadeType.REMOVE)
     private final Set<Comment> comments = new LinkedHashSet<>();
 
      private String title;
 
+     @Column(length = 3000)
      private String content;
 
      private String hashtag;
@@ -70,6 +70,12 @@ public class Article {
 
     public static Article of(UserAccount userAccount, String title, String content, String hashtag) {
         return new Article(userAccount, title, content, hashtag );
+    }
+
+    public void update(ArticleDto dto) {
+        this.title = dto.title();
+        this.content = dto.content();
+        this.hashtag = dto.hashtag();
     }
 
 

@@ -1,6 +1,7 @@
 package practice.board.dto;
 
 import practice.board.domain.Article;
+import practice.board.domain.UserAccount;
 
 import java.time.LocalDateTime;
 import java.util.LinkedHashSet;
@@ -30,6 +31,15 @@ public record ArticleDto(
                 entity.getComments().stream()
                         .map(CommentDto::from)
                         .collect(Collectors.toCollection(LinkedHashSet::new))//TODO: Set<Comment>로 변경
+        );
+    }
+
+    public Article toEntity(UserAccount userAccount) {
+        return Article.of(
+                userAccount,
+                title,
+                content,
+                hashtag
         );
     }
 
