@@ -2,6 +2,7 @@ package practice.board.dto;
 
 import practice.board.domain.Article;
 import practice.board.domain.Comment;
+import practice.board.domain.UserAccount;
 
 import java.time.LocalDateTime;
 
@@ -24,6 +25,14 @@ public record CommentDto(
                 entity.getCreatedBy(),
                 entity.getModifiedAt(),
                 entity.getModifiedBy()
+        );
+    }
+
+    public Comment toEntity(Article article, UserAccount userAccount){
+        return Comment.of(
+                article,
+                userAccount,
+                content
         );
     }
 

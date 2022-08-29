@@ -1,6 +1,5 @@
 package practice.board.dto;
 
-import practice.board.domain.Comment;
 import practice.board.domain.UserAccount;
 
 import java.time.LocalDateTime;
@@ -26,7 +25,7 @@ public record UserAccountDto(
     public static UserAccountDto from(UserAccount entity) {
         return new UserAccountDto(
                 entity.getUserId(),
-                entity.getPassword(),
+                entity.getUserPassword(),
                 entity.getEmail(),
                 entity.getNickname(),
                 entity.getPhone(),
@@ -38,7 +37,7 @@ public record UserAccountDto(
                         .map(CommentDto::from)
                         .collect(Collectors.toCollection(LinkedHashSet::new)),
                 entity.getCreatedAt(),
-                entity.getModifiedBy()
+                entity.getModifiedAt()
         );
     }
 
