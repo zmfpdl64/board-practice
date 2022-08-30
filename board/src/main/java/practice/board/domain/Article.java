@@ -2,6 +2,7 @@ package practice.board.domain;
 
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -31,18 +32,19 @@ public class Article {
     private Long id;
 
     //TODO: 유저 엔티티 작성시 변경
-    @ManyToOne
-    @JoinColumn(name = "USERACCOUNT_USERID")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "useraccount_userid")
     private UserAccount userAccount;
 
     //TODO: 댓글 엔티티 작성시 변경
     //여기서 연관 맵핑할 때 commentId로 해서 제대로 맵핑이 안돼 계속 오류가 발생했다..
-    @OneToMany(mappedBy = "articleId", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "articleId", cascade = CascadeType.ALL)
+    @ToString.Exclude
     private final Set<Comment> comments = new LinkedHashSet<>();
 
      private String title;
 
-     @Column(length = 3000)
+     @Column(length = 3000) @Setter
      private String content;
 
      private String hashtag;

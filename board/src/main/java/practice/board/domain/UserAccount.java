@@ -19,7 +19,10 @@ import java.util.Set;
 public class UserAccount {
 
     @Id
+    @Column(nullable = false)
     private String userId;
+
+    @Column(nullable = false)
 
     private String userPassword;
 
@@ -32,11 +35,11 @@ public class UserAccount {
     private String address;
 
     //TODO: 게시글 엔티티, 댓글 엔티티 작성 시 변경
-    @OneToMany(mappedBy = "id", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "id", orphanRemoval = true, cascade = CascadeType.ALL)
     @ToString.Exclude
     private final Set<Article> articles = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "commentId", orphanRemoval = true, cascade = CascadeType.ALL)
     @ToString.Exclude
     private final Set<Comment> comments = new LinkedHashSet<>();
 

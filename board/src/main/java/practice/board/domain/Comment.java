@@ -2,6 +2,7 @@ package practice.board.domain;
 
 
 import lombok.Getter;
+import lombok.Setter;
 import lombok.ToString;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
@@ -24,16 +25,16 @@ public class Comment {
     private Long commentId;
 
     //TODO: 게시글 엔티티로 변경해주기
-    @ManyToOne
-    @JoinColumn(name = "ARTICLE_ID")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "article_id")
     private Article articleId;
 
     //TODO: 유저 엔티티로 작성시 유저 계정으로 변경
-    @ManyToOne
-    @JoinColumn(name = "USERACCOUNT_USERID")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "useraccount_userid")
     private UserAccount userId;
 
-    @Column(length=1000)
+    @Column(length=1000) @Setter
     private String content;
 
     @CreatedDate
