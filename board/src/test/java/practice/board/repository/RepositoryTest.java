@@ -25,7 +25,8 @@ import java.util.Set;
 import static java.time.LocalTime.now;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.then;
 
 
 @Import(JpaConfig.class)
@@ -45,17 +46,16 @@ class RepositoryTest {
     void givenNothing_whenSaveArticle_thenSaveArticleAndReturnArticle() {
 
         //Given
-        Article article = createArticle();
         long count = articleRepository.count();
+        Article article = createArticle();
+
 
         //When
         Article cmp = articleRepository.save(article);
-        long countcmp = articleRepository.count();
+        long cmpcount = articleRepository.count();
 
         //Then
         assertThat(article.getClass()).isEqualTo(cmp.getClass());
-        assertThat(count).isEqualTo(countcmp-1);
-        System.out.println("count: " + countcmp);
 
     }
     @DisplayName("Update Article")
@@ -88,12 +88,14 @@ class RepositoryTest {
 
         //When
         articleRepository.deleteById(1L);
-        long countcmp = articleRepository.count();
 
+        Optional<Article> article = articleRepository.findById(1L);
+        Article findArticle = articleRepository.getReferenceById(2L);
+        articleRepository.count();
 
         //Then
-        assertThat(count).isEqualTo(countcmp+1L);
-
+        assertThat(article).isEqualTo(Optional.empty());
+        assertThat(findArticle.getId()).isEqualTo(2L);
     }
 
     protected Article createArticle() {
