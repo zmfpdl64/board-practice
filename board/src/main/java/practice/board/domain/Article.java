@@ -31,12 +31,10 @@ public class Article {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    //TODO: 유저 엔티티 작성시 변경
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "useraccount_userid")
     private UserAccount userAccount;
 
-    //TODO: 댓글 엔티티 작성시 변경
     //여기서 연관 맵핑할 때 commentId로 해서 제대로 맵핑이 안돼 계속 오류가 발생했다..
     @OneToMany(mappedBy = "articleId", cascade = CascadeType.ALL)
     @ToString.Exclude
