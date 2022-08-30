@@ -34,12 +34,11 @@ public class UserAccount {
 
     private String address;
 
-    //TODO: 게시글 엔티티, 댓글 엔티티 작성 시 변경
-    @OneToMany(mappedBy = "id", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "userAccount",  cascade = CascadeType.ALL)
     @ToString.Exclude
     private final Set<Article> articles = new LinkedHashSet<>();
 
-    @OneToMany(mappedBy = "commentId", orphanRemoval = true, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
     @ToString.Exclude
     private final Set<Comment> comments = new LinkedHashSet<>();
 

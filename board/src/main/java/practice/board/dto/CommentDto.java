@@ -8,7 +8,7 @@ import java.time.LocalDateTime;
 
 public record CommentDto(
         ArticleDto articleId,
-        UserAccountDto userId, //TODO: 유저 엔티티 작성 시 변경
+        UserAccountDto userId,
         String content,
         LocalDateTime createdAt,
         String createdBy,

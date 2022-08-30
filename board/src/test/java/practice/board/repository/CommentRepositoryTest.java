@@ -79,6 +79,8 @@ class CommentRepositoryTest {
         //When
         commentRepository.deleteByCommentId(1L);
         long deletedSize = commentRepository.count();
+        //Comment 엔티티에 user와 연관 맵핑하는 곳에서 orphanRemoval = true로 설정하여
+        //자동으로 연관되어있는 객체를 삭제해서 오류가 발생했었다.
 
         //Then
         assertThat(previousecount).isEqualTo(deletedSize+1L);

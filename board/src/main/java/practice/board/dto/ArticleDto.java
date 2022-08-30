@@ -30,7 +30,7 @@ public record ArticleDto(
                 entity.getModifiedBy(),
                 entity.getComments().stream()
                         .map(CommentDto::from)
-                        .collect(Collectors.toCollection(LinkedHashSet::new))//TODO: Set<Comment>로 변경
+                        .collect(Collectors.toCollection(LinkedHashSet::new))
         );
     }
 

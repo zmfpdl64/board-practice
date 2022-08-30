@@ -14,7 +14,7 @@ public record UserAccountDto(
         String nickname,
         String phone,
         String address,
-        //TODO: 게시글 엔티티, 댓글 엔티티 작성시 변경해야함
+
         Set<ArticleDto> articles,
         Set<CommentDto> comments,
         LocalDateTime createdAt,

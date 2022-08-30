@@ -5,13 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.context.TestConfiguration;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Import;
-import org.springframework.data.domain.AuditorAware;
-import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
-import org.springframework.transaction.annotation.Transactional;
 import practice.board.config.JpaConfig;
 import practice.board.domain.Article;
 import practice.board.domain.Comment;
@@ -24,20 +18,18 @@ import java.util.Set;
 
 import static java.time.LocalTime.now;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.then;
 
 
 @Import(JpaConfig.class)
 @DisplayName("ArticleRepository Test")
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE) //실제 디비를 사용하기 위한 설정
-class RepositoryTest {
+class ArticleRepositoryTest {
 
     private final ArticleRepository articleRepository;
 
-    public RepositoryTest(@Autowired ArticleRepository articleRepository) {
+    public ArticleRepositoryTest(@Autowired ArticleRepository articleRepository) {
         this.articleRepository = articleRepository;
     }
 
@@ -91,11 +83,12 @@ class RepositoryTest {
 
         Optional<Article> article = articleRepository.findById(1L);
         Article findArticle = articleRepository.getReferenceById(2L);
-        articleRepository.count();
+        long cmpcount = articleRepository.count();
 
         //Then
         assertThat(article).isEqualTo(Optional.empty());
         assertThat(findArticle.getId()).isEqualTo(2L);
+        assertThat(cmpcount).isEqualTo(count-1L);
     }
 
     protected Article createArticle() {
