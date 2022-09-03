@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public record ArticleDto(
+        Long id,
         String title,
         String content,
         String hashtag,
@@ -21,6 +22,7 @@ public record ArticleDto(
 
     public static ArticleDto from(Article entity) {
         return new ArticleDto(
+                entity.getId(),
                 entity.getTitle(),
                 entity.getContent(),
                 entity.getHashtag(),
