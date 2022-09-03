@@ -7,6 +7,7 @@ import practice.board.domain.UserAccount;
 import java.time.LocalDateTime;
 
 public record CommentDto(
+        Long commentId,
         ArticleDto articleId,
         UserAccountDto userId,
         String content,
@@ -18,6 +19,7 @@ public record CommentDto(
 
     public static CommentDto from(Comment entity) {
         return new CommentDto(
+                entity.getCommentId(),
                 ArticleDto.from(entity.getArticleId()),
                 UserAccountDto.from(entity.getUserId()),
                 entity.getContent(),
