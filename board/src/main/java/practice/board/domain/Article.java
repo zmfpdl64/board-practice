@@ -40,12 +40,12 @@ public class Article {
     @ToString.Exclude
     private final Set<Comment> comments = new LinkedHashSet<>();
 
-     private String title;
+     @Setter private String title;
 
      @Column(length = 3000) @Setter
      private String content;
 
-     private String hashtag;
+     @Setter private String hashtag;
 
      @CreatedDate private LocalDateTime createdAt;
 
