@@ -47,6 +47,7 @@ class ArticleRepositoryTest {
         long cmpcount = articleRepository.count();
 
         //Then
+        assertThat(article.getId()).isEqualTo(cmp.getId());
         assertThat(article.getClass()).isEqualTo(cmp.getClass());
 
     }
@@ -102,6 +103,7 @@ class ArticleRepositoryTest {
 
     protected ArticleDto createArticleDto() {
         return new ArticleDto(
+                1L,
                 "dtotitle",
                 "dtocontent",
                 "dtohashtag",

@@ -92,6 +92,7 @@ class CommentRepositoryTest {
 
     protected ArticleDto createArticleDto() {
         return new ArticleDto(
+                1L,
                 "dtotitle",
                 "dtocontent",
                 "dtohashtag",
