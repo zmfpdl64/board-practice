@@ -17,8 +17,7 @@ import java.util.Objects;
 @Getter
 @ToString
 @Entity
-@EntityListeners(AuditingEntityListener.class)
-public class Comment {
+public class Comment extends AuditingFileds{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,17 +36,6 @@ public class Comment {
     @Column(length=1000) @Setter
     private String content;
 
-    @CreatedDate
-    private LocalDateTime createdAt;
-
-    @CreatedBy
-    private String createdBy;
-
-    @LastModifiedDate
-    private LocalDateTime modifiedAt;
-
-    @LastModifiedBy
-    private String modifiedBy;
 
     protected Comment(){
 

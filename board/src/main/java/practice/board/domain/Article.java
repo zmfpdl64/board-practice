@@ -18,7 +18,6 @@ import java.util.*;
 @Getter
 @ToString
 @Entity
-@EntityListeners(AuditingEntityListener.class)
 @Table( indexes = {
         @Index(columnList = "title"),
         @Index(columnList = "content"),
@@ -26,7 +25,7 @@ import java.util.*;
         @Index(columnList = "createdAt"),
         @Index(columnList = "createdBy"),
 })
-public class Article {
+public class Article extends AuditingFileds {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -46,14 +45,6 @@ public class Article {
      private String content;
 
      @Setter private String hashtag;
-
-     @CreatedDate private LocalDateTime createdAt;
-
-     @CreatedBy private String createdBy;
-
-     @LastModifiedDate private LocalDateTime modifiedAt;
-
-     @LastModifiedBy private String modifiedBy;
 
 
 
