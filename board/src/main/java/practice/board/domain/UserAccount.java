@@ -15,8 +15,7 @@ import java.util.Set;
 @Getter
 @ToString
 @Entity
-@EntityListeners(AuditingEntityListener.class)
-public class UserAccount {
+public class UserAccount extends AuditingFileds{
 
     @Id
     @Column(nullable = false)
@@ -41,10 +40,7 @@ public class UserAccount {
     @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
     @ToString.Exclude
     private final Set<Comment> comments = new LinkedHashSet<>();
-
-    @CreatedDate private LocalDateTime createdAt;
-
-    @LastModifiedDate private LocalDateTime modifiedAt;
+    
 
     private UserAccount(String userId, String userPassword, String email, String nickname,
                         String phone, String address) {
