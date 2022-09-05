@@ -5,6 +5,7 @@ import practice.board.domain.UserAccount;
 
 public interface UserRepository extends JpaRepository<UserAccount, Long> {
 
-    public void deleteByUserId(String userId);
+    UserAccount findByUserId(String UserId);
+    void deleteByUserId(String userId);
 
 }
