@@ -133,6 +133,7 @@ class CommentServiceTest {
 
     }
 
+    @DisplayName("DeleteComment - CommentService")
     @Test
     void deleteComment() {
 
@@ -148,6 +149,7 @@ class CommentServiceTest {
 
     }
 
+    @DisplayName("deleteComment Throw Exception - CommentService")
     @Test
     void deleteCommentButNotExists() {
 

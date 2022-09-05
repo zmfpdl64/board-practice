@@ -41,4 +41,15 @@ public record UserAccountDto(
         );
     }
 
+    public static UserAccount toEntity(UserAccountDto dto) {
+        return UserAccount.of(
+                dto.userId,
+                dto.password,
+                dto.email,
+                dto.nickname,
+                dto.phone,
+                dto.address
+        );
+    }
+
 }
