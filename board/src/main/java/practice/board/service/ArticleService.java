@@ -4,6 +4,7 @@ package practice.board.service;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import practice.board.domain.Article;
@@ -34,6 +35,15 @@ public class ArticleService {
                 .map(ArticleDto::from)
                 .orElseThrow(() -> new EntityNotFoundException("게시글이 없습니다 - articleId: "+ id));
     }
+
+    @Transactional(readOnly = true)
+    public Page<Article> searchArticleViaHashtag(String hashtag, Pageable pageable) {
+        if( hashtag == null || hashtag.isBlank()) {
+            return Page.empty(pageable);
+        }
+        return articleRepository.findByHashtag(hashtag, pageable);
+    }
+
 
     public void saveArticle(ArticleDto dto, UserAccount userAccount) {
         articleRepository.save(dto.toEntity(userAccount));

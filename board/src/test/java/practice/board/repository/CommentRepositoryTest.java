@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import practice.board.config.JpaConfig;
 import practice.board.domain.Article;
 import practice.board.domain.Comment;
@@ -86,6 +88,55 @@ class CommentRepositoryTest {
         assertThat(previousecount).isEqualTo(deletedSize+1L);
     }
 
+    @DisplayName("SearchContainingContent - CommentRepository")
+    @Test
+    void searchContainingContent() {
+        //Given
+        Pageable pageable = Pageable.ofSize(10);
+
+        //When
+        Page<Comment> PageComment = commentRepository.findByContentContaining("Nam", pageable);
+
+
+        //Then
+        for(Comment Comment : PageComment) {
+            System.out.println("Comment: "+ Comment.getContent());
+        }
+    }
+
+    @DisplayName("SearchContainingUserId - CommentRepository")
+    @Test
+    void searchContainingUserId() {
+        //Given
+        Pageable pageable = Pageable.ofSize(10);
+        String userId = "uno";
+
+        //When
+        Page<Comment> PageComments = commentRepository.findByUserId_UserId(userId, pageable);
+
+        //Then
+        for(Comment comment: PageComments) {
+            System.out.println("UserId: "+comment.getUserId());
+        }
+    }
+
+    @DisplayName("SearchEqualCreatedBy - CommentRepository")
+    @Test
+    void searchEqualCreatedBy() {
+
+        //Given
+        Pageable pageable = Pageable.ofSize(10);
+        String createdBy = "uno";
+
+        //When
+        Page<Comment> PageComment = commentRepository.findByCreatedByContaining(createdBy, pageable);
+
+        //Then
+        for(Comment comment: PageComment){
+            System.out.println("createdBy: " + comment.getCreatedBy());
+        }
+
+    }
 
 
 

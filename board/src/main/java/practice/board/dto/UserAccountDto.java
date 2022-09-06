@@ -22,6 +22,11 @@ public record UserAccountDto(
 
 ) {
 
+
+    public static UserAccountDto of(String username, String password, String email, String nickname, String phone, String address, Set<ArticleDto> articles, Set<CommentDto> comments, LocalDateTime createdAt, LocalDateTime modifiedAt) {
+        return new UserAccountDto(username, password, email, nickname, phone, address, articles, comments, createdAt, modifiedAt);
+    }
+
     public static UserAccountDto from(UserAccount entity) {
         return new UserAccountDto(
                 entity.getUserId(),
