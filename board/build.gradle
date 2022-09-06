@@ -30,8 +30,35 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
+	implementation 'com.querydsl:querydsl-jpa'
+	implementation 'com.querydsl:querydsl-core'
+	implementation 'com.querydsl:querydsl-collections'
+	annotationProcessor "com.querydsl:querydsl-apt:${dependencyManagement.importedProperties['querydsl.version']}:jpa"
+	annotationProcessor "jakarta.annotation:jakarta.annotation-api"	// java.lang.NoClassDfFoundError (javax.annotation.Generated) 대응 코드
+	annotationProcessor "jakarta.persistence:jakarta.persistence-api" // java.lang.NoClassDefFoundError (javax.annotation.Entity) 대응 코드
+
+	implementation 'org.springframework.boot:spring-boot-starter-data-rest' //rest-api를 사용하기 쉽게 만드는 라이브러리
+	implementation 'org.springframework.data:spring-data-rest-hal-explorer'	//rest-api를 테스트할 수 있게 해주는 라이브러리
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
+
+def generated  = 'src/main/generated'
+
+// querydsl QClass 파일 생성 위치를 지정
+tasks.withType(JavaCompile) {
+	options.getGeneratedSourceOutputDirectory().set(file(generated))
+}
+
+// java source set 에 querydsl QClass 위치 추가
+sourceSets {
+	main.java.srcDirs += [ generated ]
+}
+
+// gradle clean 시에 QClass 디렉토리 삭제
+clean {
+	delete file(generated)
+}
+
