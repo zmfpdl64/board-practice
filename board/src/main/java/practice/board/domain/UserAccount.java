@@ -15,6 +15,12 @@ import java.util.Set;
 @Getter
 @ToString
 @Entity
+@Table(indexes = {
+        @Index(columnList = "userId", unique = true),
+        @Index(columnList = "email"),
+        @Index(columnList = "createdAt"),
+        @Index(columnList = "modifiedAt")
+})
 public class UserAccount extends AuditingFileds{
 
     @Id
@@ -40,7 +46,7 @@ public class UserAccount extends AuditingFileds{
     @OneToMany(mappedBy = "userId", cascade = CascadeType.ALL)
     @ToString.Exclude
     private final Set<Comment> comments = new LinkedHashSet<>();
-    
+
 
     private UserAccount(String userId, String userPassword, String email, String nickname,
                         String phone, String address) {

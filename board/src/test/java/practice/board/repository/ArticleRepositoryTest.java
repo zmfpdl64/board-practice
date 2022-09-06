@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import practice.board.config.JpaConfig;
 import practice.board.domain.Article;
 import practice.board.domain.Comment;
@@ -19,6 +21,8 @@ import java.util.Set;
 import static java.time.LocalTime.now;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.then;
 
 
 @Import(JpaConfig.class)
@@ -31,6 +35,25 @@ class ArticleRepositoryTest {
 
     public ArticleRepositoryTest(@Autowired ArticleRepository articleRepository) {
         this.articleRepository = articleRepository;
+    }
+
+    @DisplayName("SearchHashtags - Article")
+    @Test
+    void givenSearchKeyword_whenSearchArticle_thenReturnArticles() {
+
+        //Given
+        String color = "#red";
+        Pageable pageable = Pageable.ofSize(5);
+
+//        given(articleRepository.findByHashtag(color, pageable)).willReturn(Page.empty());
+        //When
+        Page<Article> articleDto = articleRepository.findByHashtag(color, pageable);
+
+
+        //Then
+        assertThat(articleDto.getSize()).isEqualTo(5);
+//        then(articleRepository).should().findByHashtag(color, pageable);
+
     }
 
     @DisplayName("Save Article")
