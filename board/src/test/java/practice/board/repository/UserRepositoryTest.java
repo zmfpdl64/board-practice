@@ -50,9 +50,6 @@ class UserRepositoryTest {
         //TODO: 유저를 삭제할 때 삭제가 되지 않는 현상이 있다. 해결해야 함
         //Given
         long saveDataSize = userRepository.count();
-
-
-
         //When
 
         long deletedSize = userRepository.count();
@@ -67,6 +64,47 @@ class UserRepositoryTest {
         //Then
         assertThat(saveDataSize).isEqualTo(userRepository.count());
     }
+
+    @DisplayName("SearchUserId - UserAccount")
+    @Test
+    void givenUserId_whenfindUser_thenReturnUserAccount() {
+        //Given
+
+        String name = "uno";
+        //When
+        UserAccount user = userRepository.findByUserId(name);
+
+        //Then
+        assertThat(name).isEqualTo(user.getUserId());
+
+    }
+    @DisplayName("CheckPassword - UserAccount")
+    @Test
+    void givenUserPassword_whenCheckUserPassword_thenReturnUserAccount() {
+        //Given
+
+        String password = "asdf1234";
+        //When
+        List<UserAccount> findUsers = userRepository.findByUserPassword(password);
+
+        //Then
+        for(UserAccount user: findUsers) {
+            assertThat(user.getUserPassword()).isEqualTo(password);
+        }
+    }
+    @DisplayName("CheckEmail - UserAccount")
+    @Test
+    void givenUserEmail_whenfindUser_thenReturnUserAccount() {
+        //Given
+
+        String email = "uno@mail.com";
+        //When
+        UserAccount finduser = userRepository.findByEmail(email);
+
+        //Then
+        assertThat(email).isEqualTo(finduser.getEmail());
+    }
+
 
 
 

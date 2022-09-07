@@ -1,8 +1,8 @@
-insert into practiceboard.user_account (user_id, user_password, nickname, email, created_at, modified_at) values
-    ('uno', 'asdf1234', 'Uno', 'uno@mail.com', now(), now())
+insert into practiceboard.user_account (user_id, user_password, nickname, email, created_at, created_by, modified_at, modified_by) values
+    ('uno', 'asdf1234', 'Uno', 'uno@mail.com', now(), 'uno', now(), 'uno')
 ;
-insert into practiceboard.user_account (user_id, user_password, nickname, email,created_at, modified_at) values
-    ('uno2', 'asdf1234', 'Uno2', 'uno2@mail.com', now(), now())
+insert into practiceboard.user_account (user_id, user_password, nickname, email,created_at, created_by, modified_at, modified_by) values
+    ('uno2', 'asdf1234', 'Uno2', 'uno2@mail.com', now(),'uno2', now(),'uno2')
 ;
 -- 123 게시글
 insert into practiceboard.article (useraccount_userid, title, content, hashtag, created_by, modified_by, created_at, modified_at) values

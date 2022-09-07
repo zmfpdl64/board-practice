@@ -51,9 +51,45 @@ class ArticleRepositoryTest {
 
 
         //Then
+        for(Article article: articleDto) {
+            System.out.println("Article: "+ article.getHashtag());
+        }
         assertThat(articleDto.getSize()).isEqualTo(5);
 //        then(articleRepository).should().findByHashtag(color, pageable);
+    }
+    @DisplayName("SearchTitle = Article")
+    @Test
+    void givenSearchTitle_whenSearchArticle_thenReturnArticles() {
 
+
+        //Given
+        String title = "Morbi";
+        Pageable pageable = Pageable.ofSize(10);
+
+        //When
+        Page<Article> findArticles = articleRepository.findByTitleContaining(title, pageable);
+
+        //Then
+        for(Article article: findArticles) {
+            System.out.println("Article: "+article.getContent());
+        }
+
+    }
+
+    @DisplayName("SearchCreatedBy - Article")
+    @Test
+    void givenSearchCreatedBy_whenSearchArticles_thenReturnArticles() {
+        //Given
+        String createdBy = "Arv";
+        Pageable pageable = Pageable.ofSize(10);
+
+        //When
+        Page<Article> findArticles = articleRepository.findByCreatedBy(createdBy, pageable);
+
+        //Then
+        for(Article article: findArticles) {
+            System.out.println("Article: "+article.getCreatedBy());
+        }
     }
 
     @DisplayName("Save Article")
