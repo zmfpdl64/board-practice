@@ -31,6 +31,7 @@ public class UserAccount extends AuditingFileds{
 
     private String userPassword;
 
+    @Column(unique = true)
     private String email;
 
     private String nickname;
