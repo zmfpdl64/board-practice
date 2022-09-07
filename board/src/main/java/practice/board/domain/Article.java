@@ -18,13 +18,13 @@ import java.util.*;
 @Getter
 @ToString
 @Entity
-@Table( indexes = {
-        @Index(columnList = "title"),
-        @Index(columnList = "content"),
-        @Index(columnList = "hashtag"),
-        @Index(columnList = "createdAt"),
-        @Index(columnList = "createdBy"),
-})
+//@Table( indexes = {
+//        @Index(columnList = "title"),
+//        @Index(columnList = "content"),
+//        @Index(columnList = "hashtag"),
+//        @Index(columnList = "createdAt"),
+//        @Index(columnList = "createdBy"),
+//})
 public class Article extends AuditingFileds {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
